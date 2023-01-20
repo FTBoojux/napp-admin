@@ -7,9 +7,9 @@ export function getToken() {
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  return window.localStorage.setItem('token', token)
 }
 
 export function removeToken() {
-  return Cookies.remove(TokenKey)
+  return window.localStorage.clear()
 }
