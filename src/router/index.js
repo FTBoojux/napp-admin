@@ -89,7 +89,36 @@ export const constantRoutes = [
       }
     ]
   },
-
+  {
+    path: '/videoManage',
+    component: Layout,
+    redirect: '/videoManage/videoReview',
+    name: '视频管理',
+    meta: {
+      title: '视频管理',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: 'videoReview',
+        name: '投稿审核',
+        component: () => import('@/views/videoManage/videoReview/index'),
+        meta: {
+          title: '投稿审核',
+          icon: 'form'
+        }
+      },
+      {
+        path: 'reportManage',
+        name: '投稿审核',
+        component: () => import('@/views/videoManage/videoReview/index'),
+        meta: {
+          title: '投稿举办审核',
+          icon: 'form'
+        }
+      }
+    ]
+  },
   // {
   //   path: '/nested',
   //   component: Layout,
