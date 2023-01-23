@@ -7,5 +7,11 @@ export default {
       method: 'get',
       params: { pageNum, pageSize }
     })
+  },
+  passVideo(vid) {
+    return request({
+      url: `/audit/auth/videoAudit/passVideoById/${vid}`,
+      method: 'put'
+    })
   }
 }

@@ -21,6 +21,14 @@
         </el-button>
       </template>
     </el-table-column>
+    <el-table-column label="操作">
+      <template slot-scope="scope">
+        <el-button
+          @click="passVideo(scope.$index)">
+          通过
+        </el-button>
+      </template>
+    </el-table-column>
   </el-table>
 </template>
 
@@ -37,11 +45,7 @@ export default {
   mounted() {
     console.log(process.env.VUE_APP_VIDEO_URL)
     this.VIDEO_BASE_URL = process.env.VUE_APP_VIDEO_URL
-    video.getVideoListToReview(1, 10)
-      .then(res => {
-        this.videoList = res.data
-        console.log(this.videoList)
-      })
+    this.showVideoList()
   },
   methods: {
     showIntroduction(index) {
@@ -55,6 +59,22 @@ export default {
         confirmButtonText: '确定',
         dangerouslyUseHTMLString: true
       })
+    },
+    showVideoList() {
+      video.getVideoListToReview(1, 10)
+        .then(res => {
+          this.videoList = res.data
+          console.log(this.videoList)
+        })
+    },
+    passVideo(index) {
+      video.passVideo(this.videoList[index].vid)
+        .then(res => {
+          this.$alert(res.message,'结果',{
+            confirmButtonText: '确定'
+          })
+          this.showVideoList()
+        })
     }
   }
 }
