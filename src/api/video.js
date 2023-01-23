@@ -13,5 +13,12 @@ export default {
       url: `/audit/auth/videoAudit/passVideoById/${vid}`,
       method: 'put'
     })
+  },
+  rejectVideo(data) {
+    return request({
+      url: `/audit/auth/videoAudit/rejectVideo`,
+      method: 'put',
+      data
+    })
   }
 }
