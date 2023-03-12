@@ -14,14 +14,17 @@
         <template #default="scope">
           <el-button size="small" type="success" @click="showReason = true">查看</el-button>
           <el-dialog :visible.sync="showReason" title="举办理由一览">
-            <VideoReport :vid="videos[scope.$index].vid" />
+            <VideoReportReasons :vid="videos[scope.$index].vid" />
           </el-dialog>
         </template>
       </el-table-column>
 
       <el-table-column label="处理意见">
         <template #default="scope">
-          <el-button size="small" type="danger">判定违规</el-button>
+          <el-button size="small" type="danger" @click="showPassModel = true">判定违规</el-button>
+          <el-dialog :visible.sync="showPassModel" title="填写拒绝理由">
+            <VideoReportReject :vid="videos[scope.$index].vid" />
+          </el-dialog>
           <el-button size="small" type="success">举办无效</el-button>
         </template>
       </el-table-column>
@@ -31,15 +34,17 @@
 
 <script>
 import video from '@/api/video'
-import VideoReport from '@/components/Report/VideoReport'
+import VideoReportReasons from '@/components/Report/VideoReportReasons'
+import VideoReportReject from '@/components/Report/VideoReportPass'
 export default {
   name: 'ReportVideo',
-  components: { VideoReport },
+  components: { VideoReportReject, VideoReportReasons },
   data() {
     return {
       videos: [],
       VIDEO_BASE_URL: '',
-      showReason: false
+      showReason: false,
+      showPassModel: false
     }
   },
   mounted() {
