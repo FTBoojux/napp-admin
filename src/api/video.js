@@ -20,5 +20,15 @@ export default {
       method: 'put',
       data
     })
+  },
+  getVideoReported(){
+    return request({
+      url: `/audit/auth/videoAudit/videosReported`
+    })
+  },
+  getVideoReportReason(vid){
+    return request({
+      url: `/audit/auth/videoAudit/${vid}/reportReason`
+    })
   }
 }

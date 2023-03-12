@@ -111,7 +111,7 @@ export const constantRoutes = [
       {
         path: 'reportManage',
         name: '投稿审核',
-        component: () => import('@/views/videoManage/videoReview/index'),
+        component: () => import('@/views/videoManage/reportReview/index'),
         meta: {
           title: '投稿举办审核',
           icon: 'form'
