@@ -21,14 +21,15 @@ export default {
       data
     })
   },
-  getVideoReported(){
+  getVideoReported() {
     return request({
       url: `/audit/auth/videoAudit/videosReported`
     })
   },
-  getVideoReportReason(vid){
+  getVideoReportReason(vid) {
     return request({
       url: `/audit/auth/videoAudit/${vid}/reportReason`
     })
-  }
+  },
+
 }
