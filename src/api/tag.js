@@ -13,3 +13,10 @@ export function addNewTag(tagName) {
     method: 'put'
   })
 }
+
+export function removeTag(tagId) {
+  return request({
+    url: `/videoManage/videoTag/${tagId}`,
+    method: 'delete'
+  })
+}

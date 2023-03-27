@@ -15,15 +15,22 @@
       <el-table-column
         label="操作"
         width="180"
-        :formatter="({ row }) => '删除'"
-        @cell-click="deleteTag"
-      />
+      >
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="deleteTag(scope.$index)"
+          >
+            删除
+          </el-button>
+        </template></el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
-import { addNewTag, getVideoTags } from '@/api/tag'
+import { addNewTag, getVideoTags, removeTag } from '@/api/tag'
 
 export default {
   name: 'Tag',
@@ -61,6 +68,21 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    deleteTag(index) {
+      removeTag(this.tags[index].vtId)
+        .then(res => {
+          console.log(res)
+          this.$message({
+            type: 'info',
+            message: res.data
+          })
+          this.getTags()
+        })
+        .catch(err => {
+          console.log(err)
+        }
+        )
     }
   }
 
