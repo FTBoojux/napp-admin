@@ -119,6 +119,27 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/tag',
+    component: Layout,
+    redirect: '/tag',
+    name: '标签管理',
+    meta: {
+      title: '标签管理',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: '/index',
+        name: '标签管理',
+        component: () => import('@/views/tag/index'),
+        meta: {
+          title: '标签管理',
+          icon: 'form'
+        }
+      }
+    ]
+  },
   // {
   //   path: '/nested',
   //   component: Layout,
