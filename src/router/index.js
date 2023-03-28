@@ -116,6 +116,15 @@ export const constantRoutes = [
           title: '投稿举办审核',
           icon: 'form'
         }
+      },
+      {
+        path: 'commentReview',
+        name: '评论审核',
+        component: () => import('@/views/videoManage/commentReview/index'),
+        meta: {
+          title: '评论举办审核',
+          icon: 'form'
+        }
       }
     ]
   },
