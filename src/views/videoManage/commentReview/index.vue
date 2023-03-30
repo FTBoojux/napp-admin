@@ -13,8 +13,8 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="success" @click="handleReview(scope.row.cmId, 'valid')">举报有效</el-button>
-          <el-button type="danger" @click="handleReview(scope.row.cmId, 'invalid')">举报无效</el-button>
+          <el-button type="success" @click="rejectComment(scope.row.cmId)">举报有效</el-button>
+          <el-button type="danger" @click="passComment(scope.row.cmId)">举报无效</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -22,7 +22,7 @@
       <el-list>
         <el-list-item v-for="(reason, index) in reportReasons" :key="index">
           {{ reason }}
-          <br/>
+          <br>
         </el-list-item>
       </el-list>
     </el-dialog>
@@ -73,6 +73,51 @@ export default {
       } catch (error) {
         this.$message.error('获取举报理由失败')
       }
+    },
+    async rejectComment(cmId) {
+      const reason = await this.promptReason()
+      if (reason !== null) {
+        try {
+          const data = { cmId, reason }
+          const response = await comment.rejectComment(data)
+          if (response.ok) {
+            this.$message.success('处理成功')
+            // 刷新数据或删除处理过的评论
+            await this.fetchReportedComments()
+          } else {
+            this.$message.error('处理失败')
+          }
+        } catch (error) {
+          this.$message.error('处理失败')
+        }
+      }
+    },
+    async passComment(cmId) {
+      try {
+        const response = await comment.passComment(cmId)
+        if (response.ok) {
+          this.$message.success('处理成功')
+          // 刷新数据或删除处理过的评论
+          await this.fetchReportedComments()
+        } else {
+          this.$message.error('处理失败')
+        }
+      } catch (error) {
+        this.$message.error('处理失败')
+      }
+    },
+    async promptReason() {
+      return await this.$prompt('请输入处理理由', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPlaceholder: '请输入处理理由'
+      })
+        .then(({ value }) => {
+          return value
+        })
+        .catch(() => {
+          return null
+        })
     }
   }
 }
