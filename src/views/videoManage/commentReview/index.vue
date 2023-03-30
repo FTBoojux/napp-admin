@@ -8,26 +8,38 @@
       <el-table-column prop="reportCounts" label="举报次数" width="100" />
       <el-table-column label="查看举报理由" width="150">
         <template slot-scope="scope">
-          <el-button type="primary" @click="listReason(scope.row.cmId)">查看举报理由</el-button>
+          <el-button type="primary" @click="showReportReasons(scope.row.cmId)">查看举报理由</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="操作" >
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="success" @click="handleReview(scope.row.cmId, 'valid')">举报有效</el-button>
           <el-button type="danger" @click="handleReview(scope.row.cmId, 'invalid')">举报无效</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog title="举报理由" :visible.sync="reportReasonDialogVisible" width="30%">
+      <el-list>
+        <el-list-item v-for="(reason, index) in reportReasons" :key="index">
+          {{ reason }}
+          <br/>
+        </el-list-item>
+      </el-list>
+    </el-dialog>
+
   </div>
 </template>
 
 <script>
 import video from '@/api/video'
+import comment from '@/api/comment'
 
 export default {
   data() {
     return {
-      reportedComments: []
+      reportedComments: [],
+      reportReasonDialogVisible: false,
+      reportReasons: []
     }
   },
   created() {
@@ -48,6 +60,19 @@ export default {
     },
     listReason(cmId) {
       console.log(cmId)
+    },
+    async showReportReasons(cmId) {
+      try {
+        const response = await comment.getReportReason(cmId)
+        if (response.ok) {
+          this.reportReasons = response.data
+          this.reportReasonDialogVisible = true
+        } else {
+          this.$message.error('获取举报理由失败')
+        }
+      } catch (error) {
+        this.$message.error('获取举报理由失败')
+      }
     }
   }
 }
