@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import AccountManagement from '@/views/AccountManagement'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -76,18 +77,13 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
+    path: '/account-management',
+    component: AccountManagement,
+    meta: {
+      title: 'Account Management',
+      icon: 'nested'
+    }
   },
   {
     path: '/videoManage',
