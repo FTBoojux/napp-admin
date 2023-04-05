@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import AccountManagement from '@/views/AccountManagement'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -76,18 +77,13 @@ export const constantRoutes = [
       }
     ]
   },
-
   {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
+    path: '/account-management',
+    component: AccountManagement,
+    meta: {
+      title: 'Account Management',
+      icon: 'nested'
+    }
   },
   {
     path: '/videoManage',
@@ -114,6 +110,36 @@ export const constantRoutes = [
         component: () => import('@/views/videoManage/reportReview/index'),
         meta: {
           title: '投稿举办审核',
+          icon: 'form'
+        }
+      },
+      {
+        path: 'commentReview',
+        name: '评论审核',
+        component: () => import('@/views/videoManage/commentReview/index'),
+        meta: {
+          title: '评论举办审核',
+          icon: 'form'
+        }
+      }
+    ]
+  },
+  {
+    path: '/tag',
+    component: Layout,
+    redirect: '/tag',
+    name: '标签管理',
+    meta: {
+      title: '标签管理',
+      icon: 'nested'
+    },
+    children: [
+      {
+        path: '/index',
+        name: '标签管理',
+        component: () => import('@/views/tag/index'),
+        meta: {
+          title: '标签管理',
           icon: 'form'
         }
       }

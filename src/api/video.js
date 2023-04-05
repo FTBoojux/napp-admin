@@ -31,5 +31,9 @@ export default {
       url: `/audit/auth/videoAudit/${vid}/reportReason`
     })
   },
-
+  getReportedComment() {
+    return request({
+      url: `/audit/auth/videoAudit/commentsReported`
+    })
+  }
 }
